@@ -19,6 +19,8 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/filepond.min.css') }}" rel="stylesheet">
+    {{-- <link rel="stylesheet" href="{{ asset('dropzone/min/basic.min.css') }}"> --}}
 
 </head>
 
@@ -26,7 +28,7 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        @include('dashboard.sidebar')
+        @include('dashboard.includes.sidebar')
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -34,19 +36,30 @@
             <!-- Main Content -->
             <div id="content">
 
-                @include('dashboard.dashboard-header')
+                @include('dashboard.includes.dashboard-header')
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <h1 class="h3 mb-0 text-gray-800">
+                            @yield('page-title')
+                        </h1>
                     </div>
 
-                    <!-- Content Row -->
+                    @yield('content')
 
                 </div>
                 <!-- /.container-fluid -->
@@ -55,7 +68,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            @include('dashboard.dashboard-footer')
+            @include('dashboard.includes.dashboard-footer')
             <!-- End of Footer -->
 
         </div>
@@ -81,7 +94,9 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">
+                    Do you really want to Logout?
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-danger" href="{{ route('logout') }}"
@@ -108,6 +123,10 @@
     <!-- Custom scripts for all pages-->
     <script src=" {{ asset('js/sb-admin-2.min.js') }}"></script>
 
+
+
+
+    @yield('page-level-script')
     <!-- Page level plugins -->
     {{-- <script src=" {{ asset('vendor/chart.js/Chart.min.js')}}"></script> --}}
 
