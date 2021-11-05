@@ -21,6 +21,8 @@
                         @if ($user->avatar == null)
                             <img src="{{ asset('img/undraw_profile.svg') }}" alt="profile_picture" height="400" width="300" class="img-fluid mx-auto d-block rounded-circle">
 
+                        @elseif ($user->g_id || $user->fb_id)
+                            <img src="{{ $user->avatar }}" alt="profile_picture" height="400" width="300" class="img-fluid mx-auto d-block rounded-circle">
                         @else
                             <img src="{{ asset('storage/avatars/' . $user->avatar) }}" alt="profile_picture" height="400" width="300" class="img-fluid mx-auto d-block rounded-circle">
                         @endif

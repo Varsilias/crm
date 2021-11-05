@@ -24,7 +24,6 @@ class FacebookOAuthController extends Controller
 
             $user = $socialAuthService->getUserInfoFromProvider($this->provider);
 
-
             if ($this->isAlreadyUser($user->id)) {
                 return redirect()->route('home');
             } else {
@@ -34,7 +33,9 @@ class FacebookOAuthController extends Controller
                     'email' => $user->email,
                     'fb_id' => $user->id,
                     'avatar' => $user->avatar,
-                    'password' => Hash::make('default_password')
+                    'password' => Hash::make('default_password'),
+                    'email_verified_at' => now(),
+
                 ]);
 
                 $this->login($retrievedUser);
@@ -48,7 +49,7 @@ class FacebookOAuthController extends Controller
 
     }
 
-    public function isAlreadyUser(int $userFbId): bool
+    public function isAlreadyUser($userFbId): bool
     {
         $user = User::where('fb_id', $userFbId)->first();
 

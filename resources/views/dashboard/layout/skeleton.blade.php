@@ -10,7 +10,10 @@
     <meta name="author" content="">
 
     <title>CRM - Dashboard</title>
-
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{ asset('favicon/site.webmanifest')}}">
     <!-- Custom fonts for this template-->
     <link href="{{  asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
@@ -21,6 +24,7 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('dist/filepond.min.css') }}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="{{ asset('dropzone/min/basic.min.css') }}"> --}}
+
 
 </head>
 
@@ -54,9 +58,9 @@
                     @endif
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">
+                        <h4 class="h3 mb-0 text-gray-800" style="font-weight: bold;">
                             @yield('page-title')
-                        </h1>
+                        </h4>
                     </div>
 
                     @yield('content')

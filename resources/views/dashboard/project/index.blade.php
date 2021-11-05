@@ -1,51 +1,62 @@
 @extends('dashboard.layout.skeleton')
 
 <!--Page Title-->
+
 @section('page-title')
-    Clients
+    Projects
 @endsection
 
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="px-3 pb-0 pt-3">
-            <a href="{{ route('client.create') }}" class="m-0 text-white btn btn-dark btn-icon-split">
+            <a href="{{ route('project.create') }}" class="m-0 text-white btn btn-dark btn-icon-split">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
-                <span class="text">Add Client</span>
+                <span class="text">Add Project</span>
             </a>
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-            @if (count($clients) > 0)
+                @if (count($projects) > 0)
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Client or Company Name</th>
-                            <th>Address</th>
-                            <th>Email</th>
-                            <th>Location</th>
+                            <th>Project Name</th>
+                            <th>Description</th>
+                            <th>Client</th>
+                            {{-- <th>Category</th> --}}
                             <th>Amount Charged</th>
-                            <th>VAT</th>
+                            <th>Due Date</th>
+                            <th>View Todos</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
 
                         <tbody>
-                            @foreach ($clients as $client)
+                            @foreach ($projects as $project)
                                 <tr>
-                                    <td>{{ $client->company_name }}</td>
-                                    <td>{{ $client->company_address }}</td>
-                                    <td>{{ $client->company_email }}</td>
-                                    <td>{{ $client->company_location }}</td>
-                                    <td>{{ formatDollarAmount($client->amount_charged) }}</td>
-                                    <td>{{ calculateVAT($client->amount_charged) }}</td>
+                                    <td>{{ $project->project_name }}</td>
+                                    <td>{{ $project->project_description }}</td>
+                                    <td>{{ $project->client->company_name }}</td>
+                                    {{-- <td>{{ $project->project_type }}</td> --}}
+                                    <td>{{ formatDollarAmount($project->amount_charged) }}</td>
+                                    <td>{{ formatDate($project->due_date) }}</td>
+
+                                    <td>
+                                        <a href="{{ route('task.index', $project->id) }}">
+                                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                                <i class="fas fa-tasks"></i>
+                                                <span>Todos</span>
+                                            </div>
+                                        </a>
+                                    </td>
 
                                     <td class="text-center">
-                                        <a href="{{ route('client.edit', $client->id) }}">
+                                        <a href="{{ route('project.edit', $project->id) }}">
                                             <div class="d-flex flex-row justify-content-between align-items-center">
                                               <i class="fas fa-edit"></i>
                                                <span>Edit</span>
@@ -54,8 +65,7 @@
                                     </td>
 
                                     <td class="text-center">
-
-                                        <form action="{{ route('client.delete', $client->id) }}" method="POST">
+                                        <form action="{{ route('project.delete', $project->id) }}" method="POST">
                                             @method('DELETE')
                                             @csrf
                                             <button type="submit" class="btn btn-danger">
@@ -68,17 +78,13 @@
                             @endforeach
                         </tbody>
                     @else
-
-                    <h6 class="text-gray-50"><em>You have no existing clients. Proceed to add a<a href="{{ route('client.create') }}" class="text-link"> new client</a></em></h6>
-
+                    <h6 class="text-gray-50"><em>You have no existing projects. Proceed to add a<a href="{{ route('project.create') }}" class="text-link"> new project</a></em></h6>                    
                     @endif
 
                 </table>
             </div>
         </div>
     </div>
-
-    
 @endsection
 
 

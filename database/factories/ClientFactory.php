@@ -22,7 +22,7 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => $this->faker->numberBetween(1, 5),
+            'user_id' => 1,
             'company_name' => $this->faker->company(),
             'company_address' => $this->faker->address(),
             'company_email' => $this->faker->companyEmail(),

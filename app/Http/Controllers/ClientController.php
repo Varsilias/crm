@@ -84,7 +84,7 @@ class ClientController extends Controller
         // dd($request->all());
         $client->update($request->all());
         return redirect()->route('client.index')->with([
-            'success' => 'Client updated successfully'
+            'success' => 'Client data updated successfully'
         ]);
     }
 

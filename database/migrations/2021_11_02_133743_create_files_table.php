@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTemporarayFilesTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateTemporarayFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('temporaray_files', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->string('folder');
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->string('file_url');
             $table->string('filename');
             $table->timestamps();
         });
@@ -28,6 +30,6 @@ class CreateTemporarayFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('temporaray_files');
+        Schema::dropIfExists('files');
     }
 }
