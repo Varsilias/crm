@@ -1,3 +1,4 @@
+
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -31,18 +32,18 @@
     </li>
 
     <li class="nav-item ">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ route('project.index') }}">
             <i class="fas fa-project-diagram"></i>
             <span>Projects</span>
         </a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="index.html">
-            <i class="fas fa-tasks"></i>
-            <span>Tasks</span>
+    {{-- <li class="nav-item">
+        <a class="nav-link" href="{{ route('file.index') }}">
+            <i class="fas fa-file-alt"></i>
+            <span>Files</span>
         </a>
-    </li>
+    </li> --}}
 
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -60,4 +61,5 @@
     </div>
 
 </ul>
+
 <!-- End of Sidebar -->

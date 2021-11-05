@@ -8,6 +8,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoogleOAuthController;
 use App\Http\Controllers\FacebookOAuthController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +29,23 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
+// Route::get('/email/verify', function () {
+//     return view('auth.verify');
+// })->middleware('auth')->name('verification.notice');
+
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     $request->fulfill();
+
+//     return redirect()->route('home');
+// })->middleware(['auth', 'signed'])->name('verification.verify');
+
+// Route::post('/email/verification-notification', function (Request $request) {
+//     $request->user()->sendEmailVerificationNotification();
+
+//     return back()->with('resent', 'Verification link sent!');
+// })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
 /**
  * Social Login Routes
@@ -39,13 +60,17 @@ Route::prefix('auth')->group(function () {
 
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
 
 
 });
+
+/**
+ *   Client related routes
+ */
 
 Route::prefix('clients')->middleware(['auth'])->group(function () {
 
@@ -59,11 +84,56 @@ Route::prefix('clients')->middleware(['auth'])->group(function () {
 
 });
 
+/**
+ *   Profile related routes
+ */
 Route::prefix('profile')->middleware(['auth'])->group(function () {
 
-    // Profile related routes
     Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/upload', [ProfileController::class, 'upload']);
     Route::put('/{user}', [ProfileController::class, 'update'])->name('profile.update');
 });
 
+/**
+ *   Project related routes
+ */
+Route::prefix('projects')->middleware(['auth'])->group(function () {
+
+    Route::get('/', [ProjectController::class, 'index'])->name('project.index');
+    Route::get('/create-new', [ProjectController::class, 'create'])->name('project.create');
+    Route::post('/create-new', [ProjectController::class, 'store'])->name('project.store');
+    Route::get('/edit/{project}', [ProjectController::class, 'edit'])->name('project.edit');
+    Route::put('/update/{project}', [ProjectController::class, 'update'])->name('project.update');
+    Route::delete('/delete/{project}', [ProjectController::class, 'destroy'])->name('project.delete');
+
+});
+
+
+/**
+ *   Task related routes
+ */
+Route::prefix('tasks')->middleware(['auth'])->group(function () {
+
+    Route::get('/{project}', [TaskController::class, 'index'])->name('task.index');
+    Route::get('/create/{project}', [TaskController::class, 'create'])->name('task.create');
+    Route::post('/create-new', [TaskController::class, 'store'])->name('task.store');
+    Route::get('/edit/{task}', [TaskController::class, 'edit'])->name('task.edit');
+    Route::put('/update/{task}', [TaskController::class, 'update'])->name('task.update');
+    Route::delete('/delete/{task}', [TaskController::class, 'destroy'])->name('task.delete');
+
+});
+
+/**
+* Files related route
+*/
+// Route::prefix('files')->middleware(['auth'])->group(function () {
+
+//     Route::get('/', [FileController::class, 'index'])->name('file.index');
+//     Route::get('/add-file', [FileController::class, 'create'])->name('file.create');
+//     Route::post('/add-file', [FileController::class, 'store'])->name('file.store');
+    // Route::post('/upload', [FileController::class, 'upload'])->name('file.upload');
+    // Route::get('/edit/{task}', [TaskController::class, 'edit'])->name('task.edit');
+    // Route::put('/update/{task}', [TaskController::class, 'update'])->name('task.update');
+    // Route::delete('/delete/{task}', [TaskController::class, 'destroy'])->name('task.delete');
+
+// });

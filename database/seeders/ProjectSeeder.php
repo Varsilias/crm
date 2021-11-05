@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use App\Models\Client;
+use App\Models\Project;
 use Illuminate\Database\Seeder;
 
 class ProjectSeeder extends Seeder
@@ -13,6 +16,7 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
-        //
+
+        Project::factory(30)->create();
     }
 }

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -14,7 +17,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::with('client')->where('user_id', Auth::user()->id)->get();
+        // dd($projects);
+        return view('dashboard.project.index')->with([
+            'projects' => $projects
+        ]);
     }
 
     /**
@@ -24,7 +31,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $clients = Client::where('user_id', Auth::user()->id)->get();
+        return view('dashboard.project.create')->with([
+            'clients' => $clients
+        ]);
     }
 
     /**
@@ -33,9 +43,14 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        //
+        // dd($request->all());
+        Project::create($request->all());
+        return redirect()->route('project.index')->with([
+            'success' => 'Project added successfully'
+        ]);
+
     }
 
     /**
@@ -57,7 +72,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $project = Project::with('client')->find($project->id);
+        return view('dashboard.project.edit')->with([
+            'project' => $project
+        ]);
     }
 
     /**
@@ -69,7 +87,10 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $project->update($request->all());
+        return redirect()->route('project.index')->with([
+            'success' => 'Project updated successfully'
+        ]);
     }
 
     /**
@@ -80,6 +101,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect()->route('project.index')->with([
+            'success' => 'Project deleted successfully'
+        ]);
     }
 }

@@ -173,7 +173,8 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                 @if (Auth::user()->avatar == null)
                     <img src="{{ asset('img/undraw_profile.svg') }}" alt="profile_picture" class="img-profile rounded-circle">
-
+                @elseif (Auth::user()->g_id || Auth::user()->fb_id)
+                    <img src="{{ Auth::user()->avatar }}" alt="profile_picture" width="50" height="50" class="img-fluid mx-auto d-block rounded-circle">
                 @else
                     <img src="{{ asset('storage/avatars/' . Auth::user()->avatar) }}" alt="profile_picture" class="img-profile rounded-circle">
                 @endif

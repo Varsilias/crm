@@ -6,18 +6,19 @@ use App\Models\Project;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class File extends Model
+class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'project_id',
-        'filename',
-        'file_url'
-    ];
+    protected $guarded = [];
 
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

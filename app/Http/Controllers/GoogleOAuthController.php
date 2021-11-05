@@ -24,7 +24,7 @@ class GoogleOAuthController extends Controller
 
             $user = $socialAuthService->getUserInfoFromProvider($this->provider);
 
-
+            // dd($user);
             if ($this->isAlreadyUser($user->id)) {
                 return redirect()->route('home');
 
@@ -35,7 +35,8 @@ class GoogleOAuthController extends Controller
                     'email' => $user->email,
                     'g_id' => $user->id,
                     'avatar' => $user->avatar,
-                    'password' => Hash::make('default_password')
+                    'password' => Hash::make('default_password'),
+                    'email_verified_at' => now(),
                 ]);
 
                 $this->login($retrievedUser);
@@ -48,9 +49,9 @@ class GoogleOAuthController extends Controller
         }
     }
 
-    public function isAlreadyUser(int $userGId): bool
+    public function isAlreadyUser($userGId): bool
     {
-        $user = User::where('g_id', $userGId);
+        $user = User::where('g_id', $userGId)->first();
 
         if ($user) {
             $this->login($user);
