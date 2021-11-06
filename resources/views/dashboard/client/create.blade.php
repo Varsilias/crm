@@ -44,8 +44,8 @@
 
                 </div>
                 <div class="pb-3">
-                    <label for="amount_charged" class="text-dark" style="font-weight: bold;">Amount Charged</label>
-                    <input type="text" class="form-control form-control-user" placeholder="Amount Charged in dollars" name="amount_charged">
+                    {{-- <label for="amount_charged" class="text-dark" style="font-weight: bold;">Amount Charged</label> --}}
+                    <input type="hidden" class="form-control form-control-user" placeholder="Amount Charged in dollars" name="amount_charged" value="100000">
                 </div>
 
                 <div class="pb-3">

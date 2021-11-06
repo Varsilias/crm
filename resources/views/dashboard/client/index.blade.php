@@ -27,8 +27,8 @@
                             <th>Address</th>
                             <th>Email</th>
                             <th>Location</th>
-                            <th>Amount Charged</th>
-                            <th>VAT</th>
+                            {{-- <th>Amount Charged</th>
+                            <th>VAT</th> --}}
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -41,8 +41,8 @@
                                     <td>{{ $client->company_address }}</td>
                                     <td>{{ $client->company_email }}</td>
                                     <td>{{ $client->company_location }}</td>
-                                    <td>{{ formatDollarAmount($client->amount_charged) }}</td>
-                                    <td>{{ calculateVAT($client->amount_charged) }}</td>
+                                    {{-- <td>{{ formatDollarAmount($client->amount_charged) }}</td>
+                                    <td>{{ calculateVAT($client->amount_charged) }}</td> --}}
 
                                     <td class="text-center">
                                         <a href="{{ route('client.edit', $client->id) }}">
