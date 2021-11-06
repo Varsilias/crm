@@ -37,9 +37,9 @@
                             src="{{ asset('img/undraw_Followers.svg') }}" alt="...">
                     </div>
                     <p>
-                        See a list of other users of the CRM Software that might interest you and follow them only if you want to!
+                        See a list of other users of the CRM Software that might interest you and follow them only if you want to. 
                     </p>
-                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Proceed to see other Users &rarr;</a>
+                    <a href="#">Proceed to see other Users &rarr; <em>Coming Soon!</em></a>
                 </div>
             </div>
 
@@ -85,7 +85,7 @@
                     <p>
                         Create and manage new and existing projects being executed for Clients, its start date and due date!
                     </p>
-                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Proceed to create new Project &rarr;</a>
+                    <a href="{{ route('project.index') }}">Proceed to create new Project &rarr;</a>
                 </div>
             </div>
 
@@ -106,7 +106,7 @@
                     <p>
                         Create and manage tasks, attach each tasks to a specific project and mark it as complete when done
                     </p>
-                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Proceed to create new Task &rarr;</a>
+                    <a rel="nofollow" href="{{ route('project.index') }}">Proceed to create new a <strong>project</strong> and start adding <strong>tasks</strong> for it &rarr;</a>
                 </div>
             </div>
 

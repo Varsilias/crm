@@ -30,7 +30,7 @@
                             {{-- <th>Category</th> --}}
                             <th>Amount Charged</th>
                             <th>Due Date</th>
-                            <th>View Todos</th>
+                            <th>View Tasks</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -50,7 +50,7 @@
                                         <a href="{{ route('task.index', $project->id) }}">
                                             <div class="d-flex flex-row justify-content-between align-items-center">
                                                 <i class="fas fa-tasks"></i>
-                                                <span>Todos</span>
+                                                <span>Tasks</span>
                                             </div>
                                         </a>
                                     </td>
