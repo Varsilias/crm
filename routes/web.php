@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoogleOAuthController;
@@ -11,8 +10,6 @@ use App\Http\Controllers\FacebookOAuthController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,23 +26,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
-// Route::get('/email/verify', function () {
-//     return view('auth.verify');
-// })->middleware('auth')->name('verification.notice');
 
-// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-//     $request->fulfill();
-
-//     return redirect()->route('home');
-// })->middleware(['auth', 'signed'])->name('verification.verify');
-
-// Route::post('/email/verification-notification', function (Request $request) {
-//     $request->user()->sendEmailVerificationNotification();
-
-//     return back()->with('resent', 'Verification link sent!');
-// })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 
 /**
  * Social Login Routes
@@ -60,7 +43,7 @@ Route::prefix('auth')->group(function () {
 
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
